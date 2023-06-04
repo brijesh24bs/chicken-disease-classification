@@ -1,6 +1,6 @@
 from CNNClassifier.config.configuration_manager import ConfigurationManager
-from CNNClassifier.entity import BaseModelConfig
 from CNNClassifier.components.base_model import BaseModel
+from CNNClassifier.logging import logger
 
 class BaseModelPipeline:
     def __init__(self):
@@ -15,3 +15,14 @@ class BaseModelPipeline:
             base_model.update_base_model()
         except Exception as e:
             raise e
+
+
+
+if __name__ == "__main__":
+    try:
+        logger.info("Starting model pipeline")
+        pipeline = BaseModelPipeline()
+        pipeline.run()
+        logger.info("Model pipeline completed")
+    except  Exception as e:
+        raise e
