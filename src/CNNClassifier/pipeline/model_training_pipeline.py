@@ -6,7 +6,7 @@ from CNNClassifier.components.model_training import ModelTraining
 
 
 
-class ModelTrainng:
+class ModelTrainingPipeline:
     def __init__(self):
         pass
 
