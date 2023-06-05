@@ -16,13 +16,9 @@ class EvaluationPipeline:
             logger.exception(e)
 
 
-# if __name__ == '__main__':
-#     try:
-#         logger.info(f"*******************")
-#         logger.info(f">>>>>> Evaluation Pipeline Started <<<<<<")
-#         obj = EvaluationPipeline()
-#         obj.run()
-#         logger.info(f">>>>>> Evaluation Pipeline Completed <<<<<<\n\nx==========x")
-#     except Exception as e:
-#         logger.exception(e)
-#         raise e
+if __name__ == '__main__':
+    try:
+        obj = EvaluationPipeline()
+        obj.run()
+    except Exception as e:
+        raise e

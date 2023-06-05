@@ -25,3 +25,11 @@ class ModelTrainingPipeline:
 
         except Exception as e:
             raise e
+
+
+if __name__ == "__main__":
+    try:
+        model_training_pipeline = ModelTrainingPipeline()
+        model_training_pipeline.run()
+    except Exception as e:
+        raise e

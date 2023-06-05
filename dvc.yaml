@@ -1,0 +1,52 @@
+stages:
+  data_ingestion:
+    cmd: python3 src/CNNClassifier/pipeline/data_ingestion_pipeline.py
+    deps:
+      - src/CNNClassifier/pipeline/data_ingestion_pipeline.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/chicken-fecal-images
+
+  prepare_base_model:
+    cmd: python3 src/CNNClassifier/pipeline/base_model_pipeline.py
+    deps:
+      - src/CNNClassifier/pipeline/base_model_pipeline.py
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - INCLUDE_TOP
+      - CLASSES
+      - WEIGHTS
+      - LEARNING_RATE
+    outs:
+      - artifacts/base_model
+
+  training:
+    cmd: python3 src/CNNClassifier/pipeline/model_training_pipeline.py
+    deps:
+      - src/CNNClassifier/pipeline/model_training_pipeline.py
+      - src/CNNClassifier/components/prepare_callback.py
+      - config/config.yaml
+      - artifacts/data_ingestion/chicken-fecal-images
+      - artifacts/base_model
+    params:
+      - IMAGE_SIZE
+      - EPOCHS
+      - BATCH_SIZE
+      - AUGMENTATION
+    outs:
+      - artifacts/training/model.h5
+
+  evaluation:
+    cmd: python3 src/CNNClassifier/pipeline/evaluation_pipeline.py
+    deps:
+      - src/CNNClassifier/pipeline/evaluation_pipeline.py
+      - config/config.yaml
+      - artifacts/data_ingestion/chicken-fecal-images
+      - artifacts/training/model.h5
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false

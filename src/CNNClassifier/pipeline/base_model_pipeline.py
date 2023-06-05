@@ -20,9 +20,7 @@ class BaseModelPipeline:
 
 if __name__ == "__main__":
     try:
-        logger.info("Starting model pipeline")
         pipeline = BaseModelPipeline()
         pipeline.run()
-        logger.info("Model pipeline completed")
-    except  Exception as e:
+    except Exception as e:
         raise e
